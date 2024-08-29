@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dashboard</title>
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h1, h2 {
+            font-weight: bold;
+            color: #343a40;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .chart-container {
+            margin-bottom: 20px;
+        }
+        .container-custom {
+            max-width: 1200px;
+        }
+        .apa-summary {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 container-custom">
+        <h1 class="text-center mb-4">Data Dashboard</h1>
+        
+        <!-- Summary Statistics Section -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Summary Statistics</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ summary|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visualization Section -->
+        <div class="row">
+            {% if graphs.histogram or graphs.bar or graphs.pie or graphs.line %}
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Visualizations</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% if graphs.histogram %}
+                            <div class="col-md-6 chart-container">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Histogram</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ graphs.histogram|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if graphs.bar %}
+                            <div class="col-md-6 chart-container">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Bar Graph</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ graphs.bar|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            {% if graphs.pie %}
+                            <div class="col-md-6 chart-container">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Pie Chart</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ graphs.pie|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if graphs.line %}
+                            <div class="col-md-6 chart-container">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Line Graph</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        {{ graphs.line|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Insights Section -->
+        <div class="row apa-summary">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Insights</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ ai_insights }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="/" class="btn btn-primary">Go Back</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
